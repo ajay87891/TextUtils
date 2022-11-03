@@ -1,10 +1,18 @@
 import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+
 import "./App.css";
 import Alert from "./componets/Alert";
 // import { Navbar } from "flowbite-react";
 import Navbar from './componets/Navbar';
 import TextForm from "./componets/TextForm";
-// import About from "./componets/About";
+import About from "./componets/About";
+
 
 
 
@@ -26,13 +34,28 @@ function App() {
 
   return (
     <>
-
+      <Router>
+        
       <Navbar title="TextUtils" aboutText="About Us" showAlert={showAlert}/>
       <Alert alert={alert}/>
       
-      <div className="md:mx-44 mx-8">
-      <TextForm heading="Enter Text To Analyze" showAlert={showAlert}/></div>
-      {/* <About/> */}
+      
+      <Routes>
+          <Route exact path="/about"
+            element = {<About />}
+          />
+          
+          <Route exact path="/" 
+          element={
+          <TextForm heading="Enter Text To Analyze" showAlert={showAlert}/>}
+          />
+        </Routes>
+        
+        </Router>
+      
+      
+      
+      
       
       
       
