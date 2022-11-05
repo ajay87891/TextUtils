@@ -12,6 +12,7 @@ import Alert from "./componets/Alert";
 import Navbar from './componets/Navbar';
 import TextForm from "./componets/TextForm";
 import About from "./componets/About";
+import Contact from "./componets/Contact";
 
 
 
@@ -19,14 +20,17 @@ import About from "./componets/About";
 
 function App() {
 
-  const [alert, setAlert] = useState(null);
-  const showAlert = (message, type)=>{
+  const [alert, setAlert] = useState({ msg: "",
+    type: "",visi:"invisible"});
+  const showAlert = (message, type, visiblity)=>{
     setAlert({
       msg: message,
-      type: type
+      type: type,
+      visi: visiblity
     })
     setTimeout(() => {
-      setAlert(null);
+      setAlert({visi:"invisible", msg: "",
+      type: "",});
     }, 1500);
     
 
@@ -49,6 +53,10 @@ function App() {
           element={
           <TextForm heading="Enter Text To Analyze" showAlert={showAlert}/>}
           />
+          <Route exact path="/Contact"
+            element = {<Contact />}
+          />
+
         </Routes>
         
         </Router>

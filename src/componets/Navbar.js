@@ -2,18 +2,23 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import logo from './icons/text.png';
 import { Link } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 
 
 export default function Navbar(props) {
   
   const [expand, setExpand] = useState(false);
   const [dark, setdark] = useState(true);
+  let activeLink = "block py-2 pr-4 pl-3  rounded  md:p-0 md:bg-transparent text-white bg-blue-700 md:text-blue-700 dark:text-white"
+  let inactiveLink = " block py-2 pr-4 pl-3 md:p-0 ease-linear duration-500 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700  dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent "
+  // const activeString = `"md:bg-transparent","text-white","bg-blue-700","md:text-blue-700","dark:text-white"`
 
   const handelNavbutton = ()=>{
     
     
-    let btn = document.getElementById("expand");
+    // let btn = document.getElementById("expand");
+    let btn = document.querySelector("#expand");
+
     if(expand){
       btn.classList.add("hidden");
       setExpand(false)
@@ -23,36 +28,59 @@ export default function Navbar(props) {
       setExpand(true)
     }
    }
+   const dismissNavLink = ()=>{
+    // let btn = document.getElementById("expand");
+    let btn = document.querySelector("#expand");
+    btn.classList.add("hidden");
+    setExpand(false)
+
+   
+
+    
+
+
+   }
+
 
    const changeTheme = ()=>{
-    let theme = document.getElementById("mainbody");
+    // let theme = document.getElementById("mainbody");
     if(dark){
-      theme.classList.add("dark");
-      setdark(false)
-      theme.classList.add("bg-slate-800")
-      props.showAlert("Dark mode is Enabled", "Success");
+      // theme.classList.add("dark");
+      document.body.classList.add('dark');
+      setdark(false);
+      // theme.classList.add("bg-slate-800")
+      document.body.classList.add('bg-slate-800');
+      props.showAlert("Dark mode is Enabled", "Success","visible");
      
     }
     else{
-      theme.classList.remove("dark");
-      theme.classList.remove("bg-slate-800");
+      // theme.classList.remove("dark");
+      // theme.classList.remove("bg-slate-800");
+      document.body.classList.remove('dark');
+      document.body.classList.remove('bg-slate-800');
       setdark(true)
-      props.showAlert("Light mode is Enabled", "Success");
+      props.showAlert("Light mode is Enabled", "Success","visible");
      
       
     }
 
    }
+
+  //  const changeLinkColor = ()=>{
+  //   console.log("works")
+  //  }
     
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900  ease-linear duration-500 ">
       <div className="flex">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
+      
         <Link to="/" className="flex items-center">
           <img
             src={logo}
             className="mr-3 h-9"
             alt="Flowbite Logo"
+            
           />
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white  ease-linear duration-500">
             {props.title}
@@ -85,47 +113,33 @@ export default function Navbar(props) {
         <div className="hidden w-full md:block md:w-auto" id="expand">
           <ul className="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700  ease-linear duration-500">
             <li>
-              <Link
+              <NavLink
                 to="/"
-                className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
-                aria-current="page" onClick={handelNavbutton}
+                className={({isActive})=>isActive?activeLink:inactiveLink}
+                aria-current="page" onClick={ dismissNavLink }
               >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/about"
-                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent  ease-linear duration-500"
-                onClick={handelNavbutton}
+                className={({isActive})=>isActive?activeLink:inactiveLink}
+                onClick={dismissNavLink}
               >
                 {props.aboutText}
-              </Link>
+              </NavLink>
             </li>
+            
+           
             <li>
-              <a
-                href="/"
-                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent  ease-linear duration-500"
-              >
-                Services
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent  ease-linear duration-500"
-                
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent  ease-linear duration-500"
+              <NavLink
+                to="/Contact"
+                className={({isActive})=>isActive?activeLink:inactiveLink}
+                onClick={dismissNavLink}
               >
                 Contact
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
