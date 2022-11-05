@@ -95,7 +95,7 @@ export default function TextForm(props) {
        
 
       </div>
-      <div className="container flex flex-col md:m-auto mx-5">
+      <div className="container flex flex-col md:m-auto mx-5 ease-in duration-500">
           <h1 className="text-slate-800 dark:text-slate-300 text-4xl my-4  ease-linear duration-500">Your Text Summary :</h1>
           <p className="text-slate-800 dark:text-slate-300  ease-linear duration-500 sm:ml-48 ml-10">
             {text.split(/\s+/).filter((element)=>{return element.length!==0}).length} Words, {text.length} Characters
